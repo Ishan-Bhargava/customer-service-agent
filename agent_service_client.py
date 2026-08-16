@@ -12,7 +12,7 @@ https://re-7e3ec149e4fc427db528334d9f762fd9.ecs.ap-south-1.on.aws
 import os
 import requests
 
-AGENT_URL = os.environ["AGENT_URL"].rstrip("/") + "/invoke"
+AGENT_URL = "https://re-7e3ec149e4fc427db528334d9f762fd9.ecs.ap-south-1.on.aws" + "/invoke"
 REQUEST_TIMEOUT_SECONDS = 90
 
 
