@@ -6,3 +6,4 @@ mcp
 werkzeug
 boto3
 botocore[crt]
+gunicorn
