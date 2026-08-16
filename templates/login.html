@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Returns Desk -- Sign in</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="login-card">
+      <span class="stamp">Returns Desk</span>
+      <h1>Sign in</h1>
+      <p class="sub">Use your customer ID or username to pick up where you left off.</p>
+
+      {% if error %}
+        <div class="error-banner">{{ error }}</div>
+      {% endif %}
+
+      <form method="post" action="{{ url_for('login') }}">
+        <label for="identifier">Customer ID or username</label>
+        <input type="text" id="identifier" name="identifier" placeholder="Username/Account ID" autofocus required>
+
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Sign in</button>
+      </form>
+
+      <div class="hint">
+        Demo login, e.g. <code>priya.sharma</code> / <code>priya123</code>
+        (see <code>TEST_LOGINS</code> in <code>customer_data.py</code> for the rest).
+      </div>
+    </div>
+  </div>
+</body>
+</html>

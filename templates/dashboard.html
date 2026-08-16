@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Returns Desk -- Your sessions</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> Returns Desk</div>
+    <div class="who">
+      {{ full_name }}
+      <a href="{{ url_for('logout') }}">Sign out</a>
+    </div>
+  </div>
+
+  <div class="page">
+    <div class="page-head">
+      <h1>Your conversations</h1>
+      <span class="customer-id">{{ customer_id }}</span>
+    </div>
+    <p class="lede">Pick up an existing return conversation, or start a new one.</p>
+
+    <form class="new-session-form" method="post" action="{{ url_for('new_session') }}">
+      <button type="submit">+ Start new conversation</button>
+    </form>
+
+    <div class="session-list">
+      {% if sessions %}
+        {% for s in sessions %}
+          <a class="session-card" href="{{ url_for('chat_page', session_id=s.session_id) }}">
+            <div class="row1">
+              <span class="sid">{{ s.session_id }}</span>
+              <span class="meta">{{ s.message_count }} message{{ 's' if s.message_count != 1 else '' }} &middot; {{ s.last_active[:16].replace('T', ' ') }} UTC</span>
+            </div>
+            <div class="preview">{{ s.preview }}</div>
+          </a>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">No conversations yet -- start one above.</div>
+      {% endif %}
+    </div>
+  </div>
+</body>
+</html>

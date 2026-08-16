@@ -1,0 +1,8 @@
+flask
+strands-agents
+strands-agents[gemini]
+strands-agents-tools
+mcp
+werkzeug
+boto3
+botocore[crt]

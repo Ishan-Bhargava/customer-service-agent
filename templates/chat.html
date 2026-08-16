@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Returns Desk -- {{ session_id }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body data-session-id="{{ session_id }}">
+  <div class="topbar">
+    <div class="brand"><span class="dot"></span> Returns Desk</div>
+    <div class="who">
+      {{ full_name }}
+      <a href="{{ url_for('dashboard') }}">All conversations</a>
+      <a href="{{ url_for('logout') }}">Sign out</a>
+    </div>
+  </div>
+
+  <div class="chat-shell">
+    <div class="chat-head">
+      <span class="sid">{{ session_id }}</span>
+    </div>
+
+    <div class="chat-log" id="chat-log">
+      {% if not messages %}
+        <div class="chat-empty" id="chat-empty">Say hello to get started -- e.g. "I want to return an order."</div>
+      {% endif %}
+      {% for m in messages %}
+        <div class="msg {{ m.role }}">
+          <div class="role-label">{{ 'You' if m.role == 'user' else 'Agent' }}</div>
+          <div class="bubble">{{ m.text }}</div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="typing-indicator" id="typing-indicator"></div>
+    <div id="chat-error-slot"></div>
+
+    <form class="chat-input-bar" id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" autofocus>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script src="{{ url_for('static', filename='chat.js') }}"></script>
+</body>
+</html>
